@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using GitHubJobs.Models;
+using Newtonsoft.Json;
 
 namespace GitHubJobs.Controllers
 {
@@ -13,32 +14,20 @@ namespace GitHubJobs.Controllers
         {
             List<Job> result = new List<Job>();
 
-            for (int i = 0; i < 50; i++)
+            using (var webClient = new WebClient())
             {
-                result.Add(new Job()
-                {
-                    Id = "id" + i,
-                    Type = "type" + i,
-                    Url = "url" + i + i,
-                    Created_at = "created_at" + i,
-                    Company = "company" + i,
-                    Company_url = "company_url" + i,
-                    Location = "location" + i,
-                    Title = "title" + i,
-                    Description = "description" + i,
-                    How_to_apply = "how_to_apply" + i,
-                    Company_logo = "company_logo" + i
-                });
+                String rawJSON = webClient.DownloadString("https://jobs.github.com/positions.json?description=sql");
+                result = JsonConvert.DeserializeObject<List<Job>>(rawJSON);
+                Console.WriteLine(result.Count);
             }
 
             return result;
-
         }
 
         public HttpResponseMessage Get()
         {
             var jobList = AllJobs();
-            return Request.CreateResponse(HttpStatusCode.OK, new { test = jobList });
+            return Request.CreateResponse(HttpStatusCode.OK, new { jobs = jobList });
         }
     }
 }

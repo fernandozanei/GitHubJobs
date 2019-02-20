@@ -8,5 +8,10 @@ namespace GitHubJobs.Models
         private List<Job> jobs;
 
         public List<Job> Jobs { get => jobs; set => jobs = value; }
+
+        public static implicit operator List<object>(JobCollection v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
