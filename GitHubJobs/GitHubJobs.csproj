@@ -94,9 +94,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Models\Job.cs" />
-    <Compile Include="Models\JobCollection.cs" />
     <Compile Include="Controllers\JobController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\PagingParameterModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
